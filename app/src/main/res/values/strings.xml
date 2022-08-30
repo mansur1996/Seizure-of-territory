@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Seizure of territory</string>
+    <string name="str_start">Start</string>
+    <string name="str_setting">Setting</string>
+    <string name="str_feedback">Your Feedback</string>
+    <string name="str_sound">Sound</string>
+    <string name="str_vibration">Vibration</string>
+    <string name="str_brightness">Brightness</string>
+    <string name="str_language">Language</string>
+    <string name="str_thanks_for_feedback">Thank you for your feedback</string>
+    <string name="str_points">Points</string>
+    <string name="str_moves">Moves</string>
+    <string name="str_great_result">Great result</string>
+    <string name="str_one_more_time">One more time!</string>
+    <string name="str_menu">Menu</string>
+    <string name="str_you_lose">You lose</string>
+</resources>
