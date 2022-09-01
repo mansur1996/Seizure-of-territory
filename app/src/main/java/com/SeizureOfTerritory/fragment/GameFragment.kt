@@ -14,7 +14,7 @@ import com.SeizureOfTerritory.adapter.MainAdapter
 import com.SeizureOfTerritory.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
-    private lateinit var binding: FragmentGameBinding
+    private val binding by lazy { FragmentGameBinding.inflate(layoutInflater) }
     private var row = 12
     private var column = 12
     private var items = 10
@@ -42,9 +42,8 @@ class GameFragment : Fragment() {
 
     private var stageWidth: Int = 0
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        binding = FragmentGameBinding.inflate(layoutInflater)
 
         initViews()
         return binding.root
@@ -67,27 +66,27 @@ class GameFragment : Fragment() {
     private fun startGame() {
 
         binding.apply {
-            iv1.setOnClickListener {
+            iv1?.setOnClickListener {
                 coverMatrix( iv1Value)
                 setClickableFalse(1)
             }
-            iv2.setOnClickListener {
+            iv2?.setOnClickListener {
                 coverMatrix( iv2Value)
                 setClickableFalse(2)
             }
-            iv3.setOnClickListener {
+            iv3?.setOnClickListener {
                 coverMatrix( iv3Value)
                 setClickableFalse(3)
             }
-            iv4.setOnClickListener {
+            iv4?.setOnClickListener {
                 coverMatrix( iv4Value)
                 setClickableFalse(4)
             }
-            iv5.setOnClickListener {
+            iv5?.setOnClickListener {
                 coverMatrix( iv5Value)
                 setClickableFalse(5)
             }
-            iv6.setOnClickListener {
+            iv6?.setOnClickListener {
                 coverMatrix( iv6Value)
                 setClickableFalse(6)
             }
@@ -173,7 +172,7 @@ class GameFragment : Fragment() {
     }
 
     private fun refreshAdapter(matrix: Array<IntArray>, coveredMatrixPart: Array<BooleanArray>,) {
-        binding.rvMain.adapter = MainAdapter(stageWidth, matrix, coveredMatrixPart)
+        binding.rvMain!!.adapter = MainAdapter(stageWidth, matrix, coveredMatrixPart)
     }
 
     //takes the width of the phone screen
@@ -195,27 +194,27 @@ class GameFragment : Fragment() {
         _points = points
         _moves = moves
 
-        binding.tvPoints.text = "$_points"
-        binding.tvMoves.text = "$_moves"
+        binding.tvPoints!!.text = "$_points"
+        binding.tvMoves!!.text = "$_moves"
     }
 
     private fun getBallsValue() {
-        iv1Value = setImage(binding.iv1)
-        iv2Value = setImage(binding.iv2)
-        iv3Value = setImage(binding.iv3)
-        iv4Value = setImage(binding.iv4)
-        iv5Value = setImage(binding.iv5)
-        iv6Value = setImage(binding.iv6)
+        iv1Value = setImage(binding.iv1!!)
+        iv2Value = setImage(binding.iv2!!)
+        iv3Value = setImage(binding.iv3!!)
+        iv4Value = setImage(binding.iv4!!)
+        iv5Value = setImage(binding.iv5!!)
+        iv6Value = setImage(binding.iv6!!)
     }
 
     private fun setImageViewsWidth(width: Int) {
         binding.apply {
-            iv1.layoutParams.width = width
-            iv2.layoutParams.width = width
-            iv3.layoutParams.width = width
-            iv4.layoutParams.width = width
-            iv5.layoutParams.width = width
-            iv6.layoutParams.width = width
+            iv1!!.layoutParams.width = width
+            iv2!!.layoutParams.width = width
+            iv3!!.layoutParams.width = width
+            iv4!!.layoutParams.width = width
+            iv5!!.layoutParams.width = width
+            iv6!!.layoutParams.width = width
 
             iv1.layoutParams.height = width
             iv2.layoutParams.height = width
@@ -280,12 +279,12 @@ class GameFragment : Fragment() {
         binding.apply {
             when (i) {
                 1 -> {
-                    iv1.isClickable = false
-                    iv2.isClickable = true
-                    iv3.isClickable = true
-                    iv4.isClickable = true
-                    iv5.isClickable = true
-                    iv6.isClickable = true
+                    iv1!!.isClickable = false
+                    iv2!!.isClickable = true
+                    iv3!!.isClickable = true
+                    iv4!!.isClickable = true
+                    iv5!!.isClickable = true
+                    iv6!!.isClickable = true
 
                     iv1.background = resources.getDrawable(R.drawable.border_gradient_red)
                     iv2.setBackgroundResource(0)
@@ -295,12 +294,12 @@ class GameFragment : Fragment() {
                     iv6.setBackgroundResource(0)
                 }
                 2 -> {
-                    iv1.isClickable = true
-                    iv2.isClickable = false
-                    iv3.isClickable = true
-                    iv4.isClickable = true
-                    iv5.isClickable = true
-                    iv6.isClickable = true
+                    iv1!!.isClickable = true
+                    iv2!!.isClickable = false
+                    iv3!!.isClickable = true
+                    iv4!!.isClickable = true
+                    iv5!!.isClickable = true
+                    iv6!!.isClickable = true
 
                     iv1.setBackgroundResource(0)
                     iv2.background = resources.getDrawable(R.drawable.border_gradient_red)
@@ -310,12 +309,12 @@ class GameFragment : Fragment() {
                     iv6.setBackgroundResource(0)
                 }
                 3 -> {
-                    iv1.isClickable = true
-                    iv2.isClickable = true
-                    iv3.isClickable = false
-                    iv4.isClickable = true
-                    iv5.isClickable = true
-                    iv6.isClickable = true
+                    iv1!!.isClickable = true
+                    iv2!!.isClickable = true
+                    iv3!!.isClickable = false
+                    iv4!!.isClickable = true
+                    iv5!!.isClickable = true
+                    iv6!!.isClickable = true
 
                     iv1.setBackgroundResource(0)
                     iv2.setBackgroundResource(0)
@@ -325,12 +324,12 @@ class GameFragment : Fragment() {
                     iv6.setBackgroundResource(0)
                 }
                 4 -> {
-                    iv1.isClickable = true
-                    iv2.isClickable = true
-                    iv3.isClickable = true
-                    iv4.isClickable = false
-                    iv5.isClickable = true
-                    iv6.isClickable = true
+                    iv1!!.isClickable = true
+                    iv2!!.isClickable = true
+                    iv3!!.isClickable = true
+                    iv4!!.isClickable = false
+                    iv5!!.isClickable = true
+                    iv6!!.isClickable = true
 
                     iv1.setBackgroundResource(0)
                     iv2.setBackgroundResource(0)
@@ -340,12 +339,12 @@ class GameFragment : Fragment() {
                     iv6.setBackgroundResource(0)
                 }
                 5 -> {
-                    iv1.isClickable = true
-                    iv2.isClickable = true
-                    iv3.isClickable = true
-                    iv4.isClickable = true
-                    iv5.isClickable = false
-                    iv6.isClickable = true
+                    iv1!!.isClickable = true
+                    iv2!!.isClickable = true
+                    iv3!!.isClickable = true
+                    iv4!!.isClickable = true
+                    iv5!!.isClickable = false
+                    iv6!!.isClickable = true
 
                     iv1.setBackgroundResource(0)
                     iv2.setBackgroundResource(0)
@@ -355,12 +354,12 @@ class GameFragment : Fragment() {
                     iv6.setBackgroundResource(0)
                 }
                 6 -> {
-                    iv1.isClickable = true
-                    iv2.isClickable = true
-                    iv3.isClickable = true
-                    iv4.isClickable = true
-                    iv5.isClickable = true
-                    iv6.isClickable = false
+                    iv1!!.isClickable = true
+                    iv2!!.isClickable = true
+                    iv3!!.isClickable = true
+                    iv4!!.isClickable = true
+                    iv5!!.isClickable = true
+                    iv6!!.isClickable = false
 
                     iv1.setBackgroundResource(0)
                     iv2.setBackgroundResource(0)
