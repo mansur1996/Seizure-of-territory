@@ -60,15 +60,15 @@
                     android:text="@string/str_sound"/>
 
 
-                <com.bitvale.switcher.SwitcherX
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/sv_sound"
-                    android:layout_marginStart="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:switcher_on_color="@color/red"
-                    app:switcher_off_color="@color/grey"
                     android:checked="false"
-                    />
+                    android:layout_marginStart="10dp"
+                    android:thumb="@drawable/thumb_switchcompat"
+                    app:track="@drawable/track_switchcompat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
 
 
             </LinearLayout>
@@ -88,16 +88,16 @@
                     android:textSize="23sp"
                     android:text="@string/str_vibration"/>
 
-
-                <com.bitvale.switcher.SwitcherX
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/sv_vibration"
                     android:layout_marginLeft="10dp"
+                    android:checked="false"
+                    android:layout_marginStart="10dp"
+                    android:thumb="@drawable/thumb_switchcompat"
+                    app:track="@drawable/track_switchcompat"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:switcher_on_color="@color/red"
-                    app:switcher_off_color="@color/grey"
-                    android:checked="true"
-                    />
+                    android:layout_height="wrap_content"/>
+
 
 
             </LinearLayout>

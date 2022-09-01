@@ -24,6 +24,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViews() {
+
         binding.tvStart?.setOnClickListener {
             findNavController().navigate(R.id.gameFragment)
         }
