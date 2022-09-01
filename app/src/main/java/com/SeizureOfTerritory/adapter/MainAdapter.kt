@@ -25,5 +25,4 @@ class MainAdapter(
     }
 
     override fun getItemCount(): Int = matrix.size
-
 }

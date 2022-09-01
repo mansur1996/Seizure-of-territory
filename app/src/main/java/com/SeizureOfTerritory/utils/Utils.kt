@@ -2,25 +2,19 @@ package com.SeizureOfTerritory.utils
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.ContentResolver
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
-import android.os.Build
 import android.os.CountDownTimer
-import android.provider.Settings
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
 import android.widget.*
-import androidx.appcompat.widget.SwitchCompat
-import androidx.core.content.ContextCompat.startActivity
 import com.SeizureOfTerritory.R
+import com.SeizureOfTerritory.fragment.GameFragment
 
 object Utils {
 
+    // Dialogs
     fun showDialogSetting(context: Context, linearLayout: LinearLayout,requireActivity: Activity) {
         linearLayout.setBackgroundColor(Color.parseColor("#7F000000"))
         val dialog = Dialog(context, R.style.RoundedDialog)
@@ -67,15 +61,24 @@ object Utils {
         requireActivity.window.attributes = layoutParams
     }
 
-    fun showDialogResult(context: Context, result: String) {
+    fun showDialogResult(context: Context, _result: GameFragment, string: String) {
         val dialog = Dialog(context, R.style.RoundedDialog2)
         dialog.setContentView(R.layout.item_dialog_result)
 
         val tvAgain = dialog.findViewById<TextView>(R.id.tv_again)
         val tvResult = dialog.findViewById<TextView>(R.id.tv_result)
+        val tvMenu = dialog.findViewById<TextView>(R.id.tv_menu)
 
-        tvResult.text = result
-        tvAgain.setOnClickListener { dialog.dismiss() }
+        tvResult.text = string
+
+        tvAgain.setOnClickListener {
+            _result.initViews()
+            dialog.dismiss()
+        }
+        tvMenu.setOnClickListener {
+            _result.backMenu()
+            dialog.dismiss()
+        }
         dialog.show()
     }
 
@@ -112,12 +115,51 @@ object Utils {
         }.start()
     }
 
-}
+    // Fragment
+    fun fillMatrixWithFalse(matrix : Array<BooleanArray>) :Array<BooleanArray> {
+        for (i in 0 until Constants.ROW) {
+            for (j in 0 until Constants.COLUMN) {
+                matrix[i][j] = false
+            }
+        }
+        return matrix
+    }
 
-/**
- * Theme_AppCompat_Dialog
- * heme_AppCompat -> ekranni yuqori qismida width match bo'lgan holatda
- * Animation_AppCompat_Tooltip -> ekranni to'liq qoplab olish
- * AlertDialog_AppCompat_Light -> ekranni to'liq qoplab olish
- * Base_V26_Theme_AppCompat_Light -> ekranni to'liq qoplab olish
- */
+    fun setBallToImage(item: Int, imageView: ImageView) {
+        when(item){
+            1-> {
+                imageView.setImageResource(R.mipmap.ic_ball1)
+            }
+            2-> {
+                imageView.setImageResource(R.mipmap.ic_ball2)
+            }
+            3-> {
+                imageView.setImageResource(R.mipmap.ic_ball3)
+            }
+            4-> {
+                imageView.setImageResource(R.mipmap.ic_ball4)
+            }
+            5-> {
+                imageView.setImageResource(R.mipmap.ic_ball5)
+            }
+            6-> {
+                imageView.setImageResource(R.mipmap.ic_ball6)
+            }
+            7-> {
+                imageView.setImageResource(R.mipmap.ic_ball7)
+            }
+            8-> {
+                imageView.setImageResource(R.mipmap.ic_ball8)
+            }
+            9-> {
+                imageView.setImageResource(R.mipmap.ic_ball9)
+            }
+            10-> {
+                imageView.setImageResource(R.mipmap.ic_ball10)
+            }
+        }
+    }
+
+
+
+}

@@ -2,10 +2,10 @@ package com.SeizureOfTerritory.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.SeizureOfTerritory.R
 import com.SeizureOfTerritory.databinding.ItemInnerBinding
+import com.SeizureOfTerritory.utils.Utils
 
 class InnerAdapter(
     private val stageWidth: Int,
@@ -13,16 +13,16 @@ class InnerAdapter(
     private val coveredArray: BooleanArray,
 ) : RecyclerView.Adapter<InnerAdapter.ViewHolder>(){
     inner class ViewHolder(private val itemInnerBinding: ItemInnerBinding) : RecyclerView.ViewHolder(itemInnerBinding.root){
-        fun onBind(item: Int, coveredItem: Boolean) {
+        fun onBind(ball: Int, isCovered: Boolean) {
             itemInnerBinding.apply {
                 ivInner.layoutParams.height = stageWidth/13
                 ivInner.layoutParams.width = stageWidth/13
-                if (coveredItem){
-                    ivInner.setBackgroundResource(R.drawable.border_gradient_yellow);
+                if (isCovered){
+                    ivInner.setBackgroundResource(R.drawable.border_gradient_black);
                 }else{
                     ivInner.setBackgroundResource(R.drawable.border_gradient_red);
                 }
-                setImage(item, ivInner)
+                Utils.setBallToImage(ball, ivInner)
             }
         }
     }
@@ -37,38 +37,4 @@ class InnerAdapter(
 
     override fun getItemCount(): Int = array.size
 
-    private fun setImage(item: Int, imageView: ImageView) {
-        when(item){
-            1-> {
-                imageView.setImageResource(R.mipmap.ic_ball1)
-            }
-            2-> {
-                imageView.setImageResource(R.mipmap.ic_ball2)
-            }
-            3-> {
-                imageView.setImageResource(R.mipmap.ic_ball3)
-            }
-            4-> {
-                imageView.setImageResource(R.mipmap.ic_ball4)
-            }
-            5-> {
-                imageView.setImageResource(R.mipmap.ic_ball5)
-            }
-            6-> {
-                imageView.setImageResource(R.mipmap.ic_ball6)
-            }
-            7-> {
-                imageView.setImageResource(R.mipmap.ic_ball7)
-            }
-            8-> {
-                imageView.setImageResource(R.mipmap.ic_ball8)
-            }
-            9-> {
-                imageView.setImageResource(R.mipmap.ic_ball9)
-            }
-            10-> {
-                imageView.setImageResource(R.mipmap.ic_ball10)
-            }
-        }
-    }
 }
