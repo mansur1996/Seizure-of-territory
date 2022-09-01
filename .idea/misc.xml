@@ -3,9 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/drawable/bg_gradient.xml" value="0.2555" />
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/drawable/border_gradient.xml" value="0.2555" />
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/drawable/border_gradient_by_default.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/drawable/border_gradient_red.xml" value="0.2555" />
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/drawable/border_gradient_yellow.xml" value="0.2555" />
         <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/fragment_game.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/fragment_game.xml" value="0.264" />
         <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/item_inner.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/item_main.xml" value="0.24895833333333334" />
       </map>
     </option>
   </component>
