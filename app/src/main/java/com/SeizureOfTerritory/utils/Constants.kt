@@ -8,4 +8,8 @@ object Constants {
     const val MOVES = 15
     const val POINTS = 0
     const val SCORE = 1
+    const val KEY_VIBRATION = "VIBRATION"
+    const val KEY_SOUND = "SOUND"
+    const val KEY_LANG = "language"
+    const val PREF_FILE = "Pref"
 }

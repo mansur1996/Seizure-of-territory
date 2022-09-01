@@ -1,6 +1,7 @@
 package com.SeizureOfTerritory.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Point
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -17,11 +18,13 @@ import com.SeizureOfTerritory.databinding.FragmentGameBinding
 import com.SeizureOfTerritory.utils.Constants
 import com.SeizureOfTerritory.utils.Utils
 
+
 class GameFragment : Fragment() {
     private val binding by lazy { FragmentGameBinding.inflate(layoutInflater) }
 
     private var _moves = 20
     private var _points = 0
+    private var isSwitchOnVibration = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +33,7 @@ class GameFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
 
+        isSwitchOnVibration = isEnabledVibration()
         initViews()
         return binding.root
     }
@@ -189,6 +193,7 @@ class GameFragment : Fragment() {
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun setClickableFalse(ball: Int) {
         increaseMovesValue()
+        playSound()
 
         binding.apply {
             iv1!!.isClickable = true
@@ -232,6 +237,15 @@ class GameFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun isEnabledVibration(): Boolean {
+        val preferences = this.activity!!.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE)
+        return preferences.getBoolean(Constants.KEY_VIBRATION, false)
+    }
+
+    private fun playSound() {
+        if (isSwitchOnVibration) MediaPlayer.create(context, R.raw.tap_on_the_object).start()
     }
 
     private fun increaseMovesValue() {

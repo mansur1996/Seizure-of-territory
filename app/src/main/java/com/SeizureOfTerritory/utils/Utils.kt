@@ -24,13 +24,14 @@ object Utils {
         val mediaPlayer = MediaPlayer.create(context, R.raw.menu_game)
         val mediaPlayerVibration = MediaPlayer.create(context, R.raw.tap_on_the_object)
 
-    // Dialogs
-    fun showDialogSetting(context: Context, linearLayout: LinearLayout,requireActivity: Activity) {
+
         linearLayout.setBackgroundColor(Color.parseColor("#7F000000"))
         val dialog = Dialog(context, R.style.RoundedDialog)
         dialog.setContentView(R.layout.item_dialog_setting)
-        dialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
 
         val svSound = dialog.findViewById<SwitchCompat>(R.id.sv_sound)
         val svVibration = dialog.findViewById<SwitchCompat>(R.id.sv_vibration)
@@ -43,18 +44,26 @@ object Utils {
             svSound.isChecked = true
 
             mediaPlayer.start()
-        }else {
+        } else {
             svSound.isChecked = false
         }
+
         if (isCheckedVibration == 1) {
             mediaPlayerVibration.start()
             svVibration.isChecked = true
-        }else {
+        } else {
             svVibration.isChecked = false
         }
 
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
+
         sbBrightness.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekbar: SeekBar?, currentProgress: Int, p2: Boolean) {
+            override fun onProgressChanged(
+                seekbar: SeekBar?,
+                currentProgress: Int,
+                p2: Boolean
+            ) {
                 changeScreenBrightness(currentProgress.toFloat() / 100, requireActivity)
             }
 
@@ -105,7 +114,7 @@ object Utils {
         dialog.show()
     }
 
-    private fun changeScreenBrightness(level: Float,requireActivity: Activity) {
+    private fun changeScreenBrightness(level: Float, requireActivity: Activity) {
         val layoutParams: WindowManager.LayoutParams =
             requireActivity.window.attributes
 
@@ -117,6 +126,8 @@ object Utils {
     fun showDialogResult(context: Context, _result: GameFragment, string: String) {
         val dialog = Dialog(context, R.style.RoundedDialog2)
         dialog.setContentView(R.layout.item_dialog_result)
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
 
         val tvAgain = dialog.findViewById<TextView>(R.id.tv_again)
         val tvResult = dialog.findViewById<TextView>(R.id.tv_result)
@@ -139,8 +150,10 @@ object Utils {
         val dialog = Dialog(context, R.style.RoundedDialog2)
         dialog.setContentView(R.layout.item_dialog_rating)
         dialog.setCancelable(false)
-        dialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
 
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -169,7 +182,7 @@ object Utils {
     }
 
     // Fragment
-    fun fillMatrixWithFalse(matrix : Array<BooleanArray>) :Array<BooleanArray> {
+    fun fillMatrixWithFalse(matrix: Array<BooleanArray>): Array<BooleanArray> {
         for (i in 0 until Constants.ROW) {
             for (j in 0 until Constants.COLUMN) {
                 matrix[i][j] = false
@@ -179,46 +192,37 @@ object Utils {
     }
 
     fun setBallToImage(item: Int, imageView: ImageView) {
-        when(item){
-            1-> {
+        when (item) {
+            1 -> {
                 imageView.setImageResource(R.mipmap.ic_ball1)
             }
-            2-> {
+            2 -> {
                 imageView.setImageResource(R.mipmap.ic_ball2)
             }
-            3-> {
+            3 -> {
                 imageView.setImageResource(R.mipmap.ic_ball3)
             }
-            4-> {
+            4 -> {
                 imageView.setImageResource(R.mipmap.ic_ball4)
             }
-            5-> {
+            5 -> {
                 imageView.setImageResource(R.mipmap.ic_ball5)
             }
-            6-> {
+            6 -> {
                 imageView.setImageResource(R.mipmap.ic_ball6)
             }
-            7-> {
+            7 -> {
                 imageView.setImageResource(R.mipmap.ic_ball7)
             }
-            8-> {
+            8 -> {
                 imageView.setImageResource(R.mipmap.ic_ball8)
             }
-            9-> {
+            9 -> {
                 imageView.setImageResource(R.mipmap.ic_ball9)
             }
-            10-> {
+            10 -> {
                 imageView.setImageResource(R.mipmap.ic_ball10)
             }
         }
     }
-
-
-
-/**
- * Theme_AppCompat_Dialog
- * heme_AppCompat -> ekranni yuqori qismida width match bo'lgan holatda
- * Animation_AppCompat_Tooltip -> ekranni to'liq qoplab olish
- * AlertDialog_AppCompat_Light -> ekranni to'liq qoplab olish
- * Base_V26_Theme_AppCompat_Light -> ekranni to'liq qoplab olish
- */
+}

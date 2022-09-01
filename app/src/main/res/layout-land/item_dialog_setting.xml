@@ -62,7 +62,6 @@
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/sv_sound"
-                    android:checked="false"
                     android:layout_marginStart="10dp"
                     android:thumb="@drawable/thumb_switchcompat"
                     app:track="@drawable/track_switchcompat"
