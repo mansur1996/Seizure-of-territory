@@ -5,14 +5,24 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.media.MediaPlayer
 import android.os.CountDownTimer
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
+import androidx.appcompat.widget.SwitchCompat
 import com.SeizureOfTerritory.R
+import com.SeizureOfTerritory.fragment.HomeFragment
 import com.SeizureOfTerritory.fragment.GameFragment
 
 object Utils {
+
+    var isCheckedSound: Int? = null
+    var isCheckedVibration: Int? = null
+
+    fun showDialogSetting(context: Context, linearLayout: LinearLayout, requireActivity: Activity) {
+        val mediaPlayer = MediaPlayer.create(context, R.raw.menu_game)
+        val mediaPlayerVibration = MediaPlayer.create(context, R.raw.tap_on_the_object)
 
     // Dialogs
     fun showDialogSetting(context: Context, linearLayout: LinearLayout,requireActivity: Activity) {
@@ -22,32 +32,75 @@ object Utils {
         dialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.MATCH_PARENT)
 
-
+        val svSound = dialog.findViewById<SwitchCompat>(R.id.sv_sound)
+        val svVibration = dialog.findViewById<SwitchCompat>(R.id.sv_vibration)
         val ivCancel = dialog.findViewById<ImageView>(R.id.iv_cancel)
         val sbBrightness = dialog.findViewById<SeekBar>(R.id.sb_brightness)
         val ivEnglishFlag = dialog.findViewById<ImageView>(R.id.iv_english_flag)
         val ivRussianFlag = dialog.findViewById<ImageView>(R.id.iv_russian_flag)
 
-       sbBrightness.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-           override fun onProgressChanged(seekbar: SeekBar?, currentProgress: Int, p2: Boolean) {
-                changeScreenBrightness(currentProgress.toFloat()/100,requireActivity)
-           }
+        if (isCheckedSound == 1 && !mediaPlayer.isPlaying) {
+            svSound.isChecked = true
 
-           override fun onStartTrackingTouch(p0: SeekBar?) {
+            mediaPlayer.start()
+        }else {
+            svSound.isChecked = false
+        }
+        if (isCheckedVibration == 1) {
+            mediaPlayerVibration.start()
+            svVibration.isChecked = true
+        }else {
+            svVibration.isChecked = false
+        }
 
-           }
+        sbBrightness.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekbar: SeekBar?, currentProgress: Int, p2: Boolean) {
+                changeScreenBrightness(currentProgress.toFloat() / 100, requireActivity)
+            }
 
-           override fun onStopTrackingTouch(p0: SeekBar?) {
+            override fun onStartTrackingTouch(p0: SeekBar?) {
 
-           }
+            }
 
-       })
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+
+            }
+
+        })
 
         ivCancel.setOnClickListener {
             dialog.dismiss()
             linearLayout.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        svSound.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(p0: CompoundButton?, isChecked: Boolean) {
+                if (isChecked) {
+                    mediaPlayer.start()
+                    isCheckedSound = 1
+                } else {
+                    isCheckedSound = 0
+                    mediaPlayer.pause()
+                }
+            }
+
+        })
+
+
+        svVibration.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(p0: CompoundButton?, isChecked: Boolean) {
+                if (isChecked) {
+                    isCheckedVibration = 1
+                    mediaPlayerVibration.start()
+                } else {
+                    isCheckedVibration = 0
+                    mediaPlayerVibration.pause()
+                }
+            }
+
+        })
+
 
         dialog.show()
     }
@@ -85,7 +138,7 @@ object Utils {
     fun showDialogFeedback(context: Context) {
         val dialog = Dialog(context, R.style.RoundedDialog2)
         dialog.setContentView(R.layout.item_dialog_rating)
-
+        dialog.setCancelable(false)
         dialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT)
 
@@ -104,7 +157,7 @@ object Utils {
     }
 
     private fun countDownTimer(dialog: Dialog) {
-        object : CountDownTimer(500,500) {
+        object : CountDownTimer(500, 500) {
             override fun onTick(p0: Long) {
 
             }
@@ -162,4 +215,10 @@ object Utils {
 
 
 
-}
+/**
+ * Theme_AppCompat_Dialog
+ * heme_AppCompat -> ekranni yuqori qismida width match bo'lgan holatda
+ * Animation_AppCompat_Tooltip -> ekranni to'liq qoplab olish
+ * AlertDialog_AppCompat_Light -> ekranni to'liq qoplab olish
+ * Base_V26_Theme_AppCompat_Light -> ekranni to'liq qoplab olish
+ */
