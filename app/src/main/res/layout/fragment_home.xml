@@ -1,15 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/iv_main"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".fragment.HomeFragment">
 
-    <TextView
-        android:textColor="@color/teal_700"
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_start"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_gradient_red"
+        android:fontFamily="@font/inter_extra_bold"
+        android:gravity="center"
+        android:padding="4sp"
+        android:text="@string/str_start"
+        android:textAllCaps="true"
+        android:textColor="@color/red"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_setting"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/border_gradient_red"
+        android:fontFamily="@font/inter_extra_bold"
+        android:gravity="center"
+        android:padding="4sp"
+        android:text="@string/str_setting"
+        android:textAllCaps="true"
+        android:textColor="@color/red"
+        android:textSize="32sp" />
+
+    <TextView
+        android:id="@+id/tv_feedback"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_gradient_red"
+        android:fontFamily="@font/inter_extra_bold"
+        android:gravity="center"
+        android:padding="4sp"
+        android:text="@string/str_feedback"
+        android:textAllCaps="true"
+        android:textColor="@color/red"
+        android:textSize="32sp" />
+
+
+</LinearLayout>
