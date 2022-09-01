@@ -79,7 +79,7 @@ object Utils {
         dialog.show()
     }
 
-    fun showDialogRating(context: Context) {
+    fun showDialogFeedback(context: Context) {
         val dialog = Dialog(context, R.style.RoundedDialog2)
         dialog.setContentView(R.layout.item_dialog_rating)
 

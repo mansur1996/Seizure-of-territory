@@ -1,64 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/iv_main"
     tools:context=".fragment.HomeFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home"
-        android:textColor="@color/teal_700" />
-
     <LinearLayout
-        android:id="@+id/fl_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/ll_home"
+        android:gravity="center"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_dialog_setting"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_start"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:text="Dialog Setting"
+            android:background="@drawable/border_gradient_red"
+            android:fontFamily="@font/inter_extra_bold"
+            android:gravity="center"
+            android:padding="4sp"
+            android:text="@string/str_start"
             android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textColor="@color/red"
+            android:textSize="32sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_dialog_result"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_setting"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:text="Dialog Result"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/border_gradient_red"
+            android:fontFamily="@font/inter_extra_bold"
+            android:gravity="center"
+            android:padding="4sp"
+            android:text="@string/str_setting"
             android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textColor="@color/red"
+            android:textSize="32sp" />
 
         <TextView
-            android:id="@+id/tv_dialog_rating"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_feedback"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:text="Dialog Rating"
+            android:background="@drawable/border_gradient_red"
+            android:fontFamily="@font/inter_extra_bold"
+            android:gravity="center"
+            android:padding="4sp"
+            android:text="@string/str_feedback"
             android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_dialog_lose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dialog Lose"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textColor="@color/red"
+            android:textSize="32sp" />
     </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>
