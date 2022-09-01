@@ -1,6 +1,8 @@
 package com.SeizureOfTerritory.fragment
 
+import android.annotation.SuppressLint
 import android.graphics.Point
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Display
 import android.view.LayoutInflater
@@ -184,6 +186,7 @@ class GameFragment : Fragment() {
     }
 
     // Makes the selected image unselectable again
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setClickableFalse(ball: Int) {
         increaseMovesValue()
 
@@ -235,7 +238,7 @@ class GameFragment : Fragment() {
         binding.tvMoves!!.text = "${--_moves}"
     }
 
-    private var first: Int = 0;
+    private var first: Int = 0
     private var root = Array(Constants.ROW) { BooleanArray(Constants.COLUMN) }
 
     //starts filling the matrix with the selected image
@@ -244,33 +247,33 @@ class GameFragment : Fragment() {
         root = Utils.fillMatrixWithFalse(root)
         coveredMatrixPart = Utils.fillMatrixWithFalse(coveredMatrixPart)
 
-//        recursion(0, 0, ivValue)
+        recursion(0, 0, ivValue)
 
         refreshAdapter(matrix, coveredMatrixPart)
     }
 
     private fun recursion(i: Int, j: Int, ivValue: Int) {
-        if (i < 0 || i >= Constants.ROW || j < 0 || j >= Constants.COLUMN) return;
+        if (i < 0 || i >= Constants.ROW || j < 0 || j >= Constants.COLUMN) return
 
-        if (ivValue == first) return;
+        if (ivValue == first) return
 
-        if (root[i][j]) return;
+        if (root[i][j]) return
 
         if (matrix[i][j] == ivValue) {
-            root[i][j] = true;
+            root[i][j] = true
             coveredMatrixPart[i][j] = true
-            recursion(i, j + 1, ivValue);
-            recursion(i + 1, j, ivValue);
-            recursion(i, j - 1, ivValue);
-            recursion(i - 1, j, ivValue);
+            recursion(i, j + 1, ivValue)
+            recursion(i + 1, j, ivValue)
+            recursion(i, j - 1, ivValue)
+            recursion(i - 1, j, ivValue)
         } else if (matrix[i][j] == first) {
-            matrix[i][j] = ivValue;
-            root[i][j] = true;
+            matrix[i][j] = ivValue
+            root[i][j] = true
             coveredMatrixPart[i][j] = true
-            recursion(i, j + 1, ivValue);
-            recursion(i + 1, j, ivValue);
-            recursion(i, j - 1, ivValue);
-            recursion(i - 1, j, ivValue);
+            recursion(i, j + 1, ivValue)
+            recursion(i + 1, j, ivValue)
+            recursion(i, j - 1, ivValue)
+            recursion(i - 1, j, ivValue)
         }
     }
 
