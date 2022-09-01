@@ -20,6 +20,11 @@ class GameFragment : Fragment() {
     private var items = 10
     private var chosenItems = 6
 
+    private var moves = 20
+    private var points = 0
+    private var _moves = 20
+    private var _points = 0
+
     private var iv1Value = 0
     private var iv2Value = 0
     private var iv3Value = 0
@@ -37,10 +42,7 @@ class GameFragment : Fragment() {
 
     private var stageWidth: Int = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentGameBinding.inflate(layoutInflater)
 
@@ -51,14 +53,19 @@ class GameFragment : Fragment() {
     private fun initViews() {
         fillMatrix(matrix)
         cleanCoveredMatrixPart()
+        coveredMatrixPart[0][0] = true
         getScreenSize()
+
         setInitialValues(stageWidth / row)
+
         refreshAdapter(matrix, coveredMatrixPart)
 
+        // mnjjkjkbkb
         startGame()
     }
 
     private fun startGame() {
+
         binding.apply {
             iv1.setOnClickListener {
                 coverMatrix( iv1Value)
@@ -179,6 +186,29 @@ class GameFragment : Fragment() {
 
     //gives value by adjusting the width of the six images to the phone screen
     private fun setInitialValues(width: Int) {
+        setImageViewsWidth(width)
+        getBallsValue()
+        setPointsAndMovies()
+    }
+
+    private fun setPointsAndMovies() {
+        _points = points
+        _moves = moves
+
+        binding.tvPoints.text = "$_points"
+        binding.tvMoves.text = "$_moves"
+    }
+
+    private fun getBallsValue() {
+        iv1Value = setImage(binding.iv1)
+        iv2Value = setImage(binding.iv2)
+        iv3Value = setImage(binding.iv3)
+        iv4Value = setImage(binding.iv4)
+        iv5Value = setImage(binding.iv5)
+        iv6Value = setImage(binding.iv6)
+    }
+
+    private fun setImageViewsWidth(width: Int) {
         binding.apply {
             iv1.layoutParams.width = width
             iv2.layoutParams.width = width
@@ -193,13 +223,6 @@ class GameFragment : Fragment() {
             iv4.layoutParams.height = width
             iv5.layoutParams.height = width
             iv6.layoutParams.height = width
-
-            iv1Value = setImage(iv1)
-            iv2Value = setImage(iv2)
-            iv3Value = setImage(iv3)
-            iv4Value = setImage(iv4)
-            iv5Value = setImage(iv5)
-            iv6Value = setImage(iv6)
         }
     }
 
