@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
 
-<!--    cancel image-->
+    <!--    cancel image-->
     <LinearLayout
         android:gravity="end|top"
         android:id="@id/linear"
@@ -27,7 +27,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <androidx.cardview.widget.CardView
             app:cardCornerRadius="20dp"
@@ -166,9 +165,9 @@
 
                         <ImageView
                             android:id="@+id/iv_english_flag"
+                            android:layout_margin="15dp"
                             android:layout_weight="1"
-                            android:layout_margin="20dp"
-                            android:padding="10dp"
+                            android:layout_marginRight="10dp"
                             android:scaleType="centerCrop"
                             android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
@@ -178,8 +177,8 @@
                         <ImageView
                             android:id="@+id/iv_russian_flag"
                             android:layout_weight="1"
-                            android:padding="10dp"
-                            android:layout_margin="20dp"
+                            android:layout_margin="15dp"
+                            android:layout_marginLeft="10dp"
                             android:scaleType="centerCrop"
                             android:adjustViewBounds="true"
                             android:layout_width="wrap_content"
