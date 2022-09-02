@@ -27,7 +27,7 @@ object Utils {
         context: Context,
         _result: GameFragment,
         string: String,
-        isSwitchOnVibration: Boolean
+        isSwitchOnVibration: Boolean,
     ) {
         val dialog = Dialog(context, R.style.RoundedDialog2)
         dialog.setContentView(R.layout.item_dialog_result)
