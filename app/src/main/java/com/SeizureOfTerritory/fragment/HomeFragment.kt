@@ -38,19 +38,9 @@ class HomeFragment : Fragment() {
     var activeLanguage: String? = null
     var isSoundOn: Boolean = false
     var isVibrationOn: Boolean = false
+    private var brightness: Float = 50F
 
     // initialize mediaPlayers here
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        // Inflate the layout for this fragment
-
-        initViews()
-        return binding.root
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -60,13 +50,29 @@ class HomeFragment : Fragment() {
         sharedPreferences = requireContext().getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
 
+        brightness = sharedPreferences.getFloat(Constants.KEY_BRIGHTNESS, 50F)
+        manageBrightness(brightness/100, requireActivity())
         manageLanguage()
         manageSound()
+        manageVibration()
+    }
+
+    fun manageBrightness(level: Float, requireActivity: Activity) {
+        val layoutParams: WindowManager.LayoutParams = requireActivity.window.attributes
+        layoutParams.screenBrightness = level
+        requireActivity.window.attributes = layoutParams
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        // Inflate the layout for this fragment
+        initViews()
+        return binding.root
     }
 
     private fun initViews() {
-
-
         binding.tvStart?.setOnClickListener {
             if (isVibrationOn) {
                 mediaPlayerVibration.start()
@@ -75,11 +81,17 @@ class HomeFragment : Fragment() {
         }
 
         binding.tvSetting?.setOnClickListener {
+            if (isVibrationOn) {
+                mediaPlayerVibration.start()
+            }
             showDialogSetting()
         }
 
         binding.tvFeedback?.setOnClickListener {
-            Utils.showDialogFeedback(requireContext())
+            if (isVibrationOn) {
+                mediaPlayerVibration.start()
+            }
+            Utils.showDialogFeedback(requireContext(), isVibrationOn)
         }
     }
 
@@ -91,32 +103,33 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun manageSound(): Boolean {
-        isSoundOn = sharedPreferences.getBoolean(Constants.KEY_SOUND, false)
+    private fun manageSound(){
+        isSoundOn = Utils.isEnabledSound(requireActivity())
         if (isSoundOn) {
             mediaPlayer.start()
             mediaPlayer.isLooping = true
-        } else {
-            mediaPlayer.pause()
         }
-        return isSoundOn
     }
 
     private fun manageVibration() {
-        isVibrationOn = sharedPreferences.getBoolean(Constants.KEY_VIBRATION, false)
-        if (isVibrationOn) {
-            mediaPlayerVibration.start()
-        }
+        isVibrationOn = Utils.isEnabledVibration(requireActivity())
     }
 
     private fun showDialogSetting() {
-
         // do background color of homeFragment transparent
         binding.llHome!!.setBackgroundColor(Color.parseColor("#7F000000"))
 
         // Creating and setting layout off dialog
         val dialog = Dialog(requireContext(), R.style.RoundedDialog)
         dialog.setContentView(R.layout.item_dialog_setting)
+        // set flexible size off dialog
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        // do background of dialog invisible
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        // don't dismiss dialog when click outside of it
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
 
         // initialize values
         val svSound = dialog.findViewById<SwitchCompat>(R.id.sv_sound)
@@ -126,13 +139,11 @@ class HomeFragment : Fragment() {
         val ivEnglishFlag = dialog.findViewById<ImageView>(R.id.iv_english_flag)
         val ivRussianFlag = dialog.findViewById<ImageView>(R.id.iv_russian_flag)
 
-        // set flexible size off dialog
-        dialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.MATCH_PARENT)
-
-
         // control languages
         ivRussianFlag.setOnClickListener {
+            if (isVibrationOn) {
+                mediaPlayerVibration.start()
+            }
             val language = "ru"
             editor.putString(Constants.KEY_LANG, language)
             editor.commit()
@@ -140,6 +151,9 @@ class HomeFragment : Fragment() {
             dialog.dismiss()
         }
         ivEnglishFlag.setOnClickListener {
+            if (isVibrationOn) {
+                mediaPlayerVibration.start()
+            }
             val language = "en"
             editor.putString(Constants.KEY_LANG,language)
             editor.commit()
@@ -147,58 +161,46 @@ class HomeFragment : Fragment() {
             dialog.dismiss()
         }
 
-        val isSoundOn2 = manageSound()
-        isVibrationOn = sharedPreferences.getBoolean(Constants.KEY_VIBRATION, false)
-
-        // checking sound playing or not
-        svSound.isChecked = isSoundOn2
-
-        svSound.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-            override fun onCheckedChanged(p0: CompoundButton?, isChecked: Boolean) {
-                if (isChecked) {
-                    Toast.makeText(requireContext(), "ON", Toast.LENGTH_SHORT).show()
-                    mediaPlayer.start()
-                    editor.putBoolean(Constants.KEY_SOUND, true)
-                    editor.commit()
-                } else {
-                    Toast.makeText(requireContext(), "OFF", Toast.LENGTH_SHORT).show()
-                    mediaPlayer.pause()
-                    editor.putBoolean(Constants.KEY_SOUND, false)
-                    editor.commit()
-                }
+        // checking sound is playing or not
+        svSound.isChecked = isSoundOn
+        svSound.setOnCheckedChangeListener { p0, isChecked ->
+            if (isChecked) {
+                editor.putBoolean(Constants.KEY_SOUND, true)
+                editor.commit()
+                mediaPlayer.start()
+                isSoundOn = true
+            } else {
+                editor.putBoolean(Constants.KEY_SOUND, false)
+                editor.commit()
+                mediaPlayer.pause()
+                isVibrationOn = false
             }
+        }
 
-        })
-
+        // manage Vibration
         svVibration.isChecked = isVibrationOn
-
-        svVibration.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-            override fun onCheckedChanged(p0: CompoundButton?, isChecked: Boolean) {
-                if (isChecked) {
-                    editor.putBoolean(Constants.KEY_VIBRATION, true)
-                    editor.commit()
-                    mediaPlayerVibration.start()
-                } else {
-                    editor.putBoolean(Constants.KEY_VIBRATION, false)
-                    editor.commit()
-                    mediaPlayerVibration.pause()
-                }
+        svVibration.setOnCheckedChangeListener { p0, isChecked ->
+            if (isChecked) {
+                editor.putBoolean(Constants.KEY_VIBRATION, true)
+                editor.commit()
+                mediaPlayerVibration.start()
+                isVibrationOn = true
+            } else {
+                editor.putBoolean(Constants.KEY_VIBRATION, false)
+                editor.commit()
+                isVibrationOn = false
             }
-
-        })
-
-        // don't dismiss dialog when click outside of it
-        dialog.setCancelable(true)
-        dialog.setCanceledOnTouchOutside(true)
+        }
 
         // control brightness via seekbar
+        sbBrightness.progress = brightness.toInt()
         sbBrightness.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
                 seekbar: SeekBar?,
                 currentProgress: Int,
                 p2: Boolean,
             ) {
-                changeScreenBrightness(currentProgress.toFloat() / 100, requireActivity())
+                manageBrightness(currentProgress.toFloat() / 100, requireActivity())
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -206,20 +208,20 @@ class HomeFragment : Fragment() {
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-
+                editor.putFloat(Constants.KEY_BRIGHTNESS, (p0!!.progress).toFloat())
+                editor.commit()
             }
 
         })
 
         // dismiss dialog
         ivCancel.setOnClickListener {
+            if (isVibrationOn) {
+                mediaPlayerVibration.start()
+            }
             dialog.dismiss()
             binding.llHome!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
-
-        // do background of dialog invisible
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
 
         dialog.show()
     }
@@ -248,12 +250,5 @@ class HomeFragment : Fragment() {
 
         }
     }
-
-    fun changeScreenBrightness(level: Float, requireActivity: Activity) {
-        val layoutParams: WindowManager.LayoutParams = requireActivity.window.attributes
-        layoutParams.screenBrightness = level
-        requireActivity.window.attributes = layoutParams
-    }
-
 
 }

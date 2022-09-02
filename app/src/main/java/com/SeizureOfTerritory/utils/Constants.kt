@@ -16,5 +16,6 @@ object Constants {
     const val KEY_VIBRATION = "VIBRATION"
     const val KEY_SOUND = "SOUND"
     const val KEY_LANG = "language"
+    const val KEY_BRIGHTNESS = "brightness"
     const val PREF_FILE = "Pref"
 }

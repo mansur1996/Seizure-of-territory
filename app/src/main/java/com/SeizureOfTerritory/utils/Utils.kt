@@ -25,7 +25,12 @@ object Utils {
      * Dialogs are here
      */
 
-    fun showDialogResult(context: Context, _result: GameFragment, string: String) {
+    fun showDialogResult(
+        context: Context,
+        _result: GameFragment,
+        string: String,
+        isSwitchOnVibration: Boolean
+    ) {
         val dialog = Dialog(context, R.style.RoundedDialog2)
         dialog.setContentView(R.layout.item_dialog_result)
 
@@ -38,17 +43,23 @@ object Utils {
         tvResult.text = string
 
         tvAgain.setOnClickListener {
+            if (isSwitchOnVibration){
+                MediaPlayer.create(context, R.raw.tap_on_the_object).start()
+            }
             _result.initViews()
             dialog.dismiss()
         }
         tvMenu.setOnClickListener {
+            if (isSwitchOnVibration){
+                MediaPlayer.create(context, R.raw.tap_on_the_object).start()
+            }
             _result.backMenu()
             dialog.dismiss()
         }
         dialog.show()
     }
 
-    fun showDialogFeedback(context: Context) {
+    fun showDialogFeedback(context: Context, isVibrationOn: Boolean) {
         val dialog = Dialog(context, R.style.RoundedDialog2)
         dialog.setContentView(R.layout.item_dialog_rating)
         dialog.setCancelable(false)
@@ -61,8 +72,12 @@ object Utils {
         val ratingBar = dialog.findViewById<RatingBar>(R.id.ratingBar)
 
         ivCancel.setOnClickListener { dialog.dismiss() }
+
         ratingBar.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { ratingBar, rating, fromUser ->
+                if (isVibrationOn) {
+                    Constants.mediaPlayerVibration.start()
+                }
                 countDownTimer(dialog)
             }
 
@@ -131,5 +146,10 @@ object Utils {
     fun isEnabledVibration(context: Context): Boolean {
         val preferences = context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE)
         return preferences.getBoolean(Constants.KEY_VIBRATION, false)
+    }
+
+    fun isEnabledSound(context: Context): Boolean {
+        val preferences = context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE)
+        return preferences.getBoolean(Constants.KEY_SOUND, false)
     }
 }

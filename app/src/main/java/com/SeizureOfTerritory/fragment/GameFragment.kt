@@ -296,9 +296,14 @@ class GameFragment : Fragment() {
         binding.tvPoints!!.text = "${numberOfCoveredCell * Constants.SCORE}"
 
         if (numberOfCoveredCell == Constants.ROW * Constants.COLUMN) {
-            Utils.showDialogResult(requireContext(),this, resources.getString(R.string.str_great_result))
+            Utils.showDialogResult(requireContext(),this, resources.getString(R.string.str_great_result), isSwitchOnVibration)
         }else if (_moves == 0) {
-            Utils.showDialogResult(requireContext(),this, resources.getString(R.string.str_you_lose))
+            Utils.showDialogResult(
+                requireContext(),
+                this,
+                resources.getString(R.string.str_you_lose),
+                isSwitchOnVibration
+            )
         }
     }
 
