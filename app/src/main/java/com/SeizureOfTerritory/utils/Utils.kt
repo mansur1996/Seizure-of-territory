@@ -1,6 +1,5 @@
 package com.SeizureOfTerritory.utils
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -8,11 +7,10 @@ import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.CountDownTimer
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.*
-import androidx.appcompat.widget.SwitchCompat
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.TextView
 import com.SeizureOfTerritory.R
-import com.SeizureOfTerritory.fragment.HomeFragment
 import com.SeizureOfTerritory.fragment.GameFragment
 
 object Utils {
@@ -43,14 +41,14 @@ object Utils {
         tvResult.text = string
 
         tvAgain.setOnClickListener {
-            if (isSwitchOnVibration){
+            if (isSwitchOnVibration) {
                 MediaPlayer.create(context, R.raw.tap_on_the_object).start()
             }
             _result.initViews()
             dialog.dismiss()
         }
         tvMenu.setOnClickListener {
-            if (isSwitchOnVibration){
+            if (isSwitchOnVibration) {
                 MediaPlayer.create(context, R.raw.tap_on_the_object).start()
             }
             _result.backMenu()
@@ -63,15 +61,22 @@ object Utils {
         val dialog = Dialog(context, R.style.RoundedDialog2)
         dialog.setContentView(R.layout.item_dialog_rating)
         dialog.setCancelable(false)
-        dialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
 
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val ivCancel = dialog.findViewById<ImageView>(R.id.iv_cancel)
         val ratingBar = dialog.findViewById<RatingBar>(R.id.ratingBar)
 
-        ivCancel.setOnClickListener { dialog.dismiss() }
+        ivCancel.setOnClickListener {
+            if (isVibrationOn) {
+                Constants.mediaPlayerVibration.start()
+            }
+            dialog.dismiss()
+        }
 
         ratingBar.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { ratingBar, rating, fromUser ->

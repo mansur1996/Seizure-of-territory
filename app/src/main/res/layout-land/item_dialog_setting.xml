@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/str_setting"
-                android:textSize="23sp"
+                android:textSize="22sp"
                 android:textStyle="normal"
                 android:textColor="@color/black"/>
 
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textStyle="normal"
-                    android:textSize="23sp"
+                    android:textSize="22sp"
                     android:text="@string/str_sound"/>
 
 
@@ -87,12 +87,11 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textStyle="normal"
-                    android:textSize="23sp"
+                    android:textSize="22sp"
                     android:text="@string/str_vibration"/>
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/sv_vibration"
-                    android:layout_marginLeft="10dp"
                     android:checked="false"
                     android:layout_marginStart="10dp"
                     android:thumb="@drawable/thumb_switchcompat"
@@ -119,7 +118,7 @@
                     android:text="@string/str_brightness"
                     android:textStyle="normal"
                     android:textColor="@color/black"
-                    android:textSize="23sp"/>
+                    android:textSize="22sp"/>
 
                 <androidx.appcompat.widget.AppCompatSeekBar
                     android:id="@+id/sb_brightness"
@@ -151,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/str_language"
                     android:textColor="@color/black"
-                    android:textSize="23sp"
+                    android:textSize="22sp"
                     android:textStyle="normal"/>
 
                 <LinearLayout

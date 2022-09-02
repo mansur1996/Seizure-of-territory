@@ -14,10 +14,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -47,11 +45,12 @@ class HomeFragment : Fragment() {
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.menu_game)
         mediaPlayerVibration = MediaPlayer.create(context, R.raw.tap_on_the_object)
 
-        sharedPreferences = requireContext().getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE)
+        sharedPreferences =
+            requireContext().getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
 
         brightness = sharedPreferences.getFloat(Constants.KEY_BRIGHTNESS, 50F)
-        manageBrightness(brightness/100, requireActivity())
+        manageBrightness(brightness / 100, requireActivity())
         manageLanguage()
         manageSound()
         manageVibration()
@@ -103,7 +102,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun manageSound(){
+    private fun manageSound() {
         isSoundOn = Utils.isEnabledSound(requireActivity())
         if (isSoundOn) {
             mediaPlayer.start()
@@ -123,7 +122,10 @@ class HomeFragment : Fragment() {
         val dialog = Dialog(requireContext(), R.style.RoundedDialog)
         dialog.setContentView(R.layout.item_dialog_setting)
         // set flexible size off dialog
-        dialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
         // do background of dialog invisible
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -155,14 +157,14 @@ class HomeFragment : Fragment() {
                 mediaPlayerVibration.start()
             }
             val language = "en"
-            editor.putString(Constants.KEY_LANG,language)
+            editor.putString(Constants.KEY_LANG, language)
             editor.commit()
             setLocale(language)
             dialog.dismiss()
         }
 
         // checking sound is playing or not
-        svSound.isChecked = isSoundOn
+        svSound.isChecked = sharedPreferences.getBoolean(Constants.KEY_SOUND, false)
         svSound.setOnCheckedChangeListener { p0, isChecked ->
             if (isChecked) {
                 editor.putBoolean(Constants.KEY_SOUND, true)
@@ -193,7 +195,7 @@ class HomeFragment : Fragment() {
         }
 
         // control brightness via seekbar
-        sbBrightness.progress = brightness.toInt()
+        sbBrightness.progress = sharedPreferences.getFloat(Constants.KEY_BRIGHTNESS,50F).toInt()
         sbBrightness.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
                 seekbar: SeekBar?,

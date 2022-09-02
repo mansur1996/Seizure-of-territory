@@ -1,17 +1,13 @@
 package com.SeizureOfTerritory.activity
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import com.SeizureOfTerritory.R
 import com.SeizureOfTerritory.databinding.ActivityMainBinding
-import com.SeizureOfTerritory.databinding.ItemDialogResultBinding
 import com.SeizureOfTerritory.utils.Constants
 
 
@@ -39,8 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        sharedPreferences = this.getSharedPreferences(Constants.PREF_FILE,MODE_PRIVATE)
-
+        sharedPreferences = this.getSharedPreferences(Constants.PREF_FILE, MODE_PRIVATE)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -54,11 +49,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        isSoundOn = sharedPreferences.getBoolean(Constants.KEY_SOUND,false)
-        if (isSoundOn!!){
+        isSoundOn = sharedPreferences.getBoolean(Constants.KEY_SOUND, false)
+        if (isSoundOn!!) {
             Constants.mediaPlayer.start()
             Constants.mediaPlayer.isLooping = true
         }
+
 
     }
 

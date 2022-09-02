@@ -24,7 +24,7 @@
             android:text="@string/str_start"
             android:textAllCaps="true"
             android:textColor="@color/red"
-            android:textSize="32sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:text="@string/str_setting"
             android:textAllCaps="true"
             android:textColor="@color/red"
-            android:textSize="32sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/tv_feedback"
@@ -52,6 +52,6 @@
             android:text="@string/str_feedback"
             android:textAllCaps="true"
             android:textColor="@color/red"
-            android:textSize="32sp" />
+            android:textSize="30sp" />
     </LinearLayout>
 </LinearLayout>
