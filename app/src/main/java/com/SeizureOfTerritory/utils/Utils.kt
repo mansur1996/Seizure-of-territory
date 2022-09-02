@@ -1,15 +1,18 @@
 package com.SeizureOfTerritory.utils
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.media.MediaPlayer
 import android.os.CountDownTimer
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.view.WindowManager
+import android.widget.*
+import androidx.appcompat.widget.SwitchCompat
 import com.SeizureOfTerritory.R
+import com.SeizureOfTerritory.fragment.HomeFragment
 import com.SeizureOfTerritory.fragment.GameFragment
 
 object Utils {

@@ -4,7 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/fragment_game.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/fragment_game.xml" value="0.264" />
         <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
         <entry key="..\:/Seizure-of-territory/app/src/main/res/drawable/background_fill.xml" value="0.165" />
         <entry key="..\:/Seizure-of-territory/app/src/main/res/drawable/bg_gradient.xml" value="0.1465" />
@@ -35,6 +35,9 @@
         <entry key="..\:/Seizure-of-territory/app/src/main/res/layout/item_dialog_result.xml" value="0.2125" />
         <entry key="..\:/Seizure-of-territory/app/src/main/res/layout/item_dialog_setting.xml" value="0.21145833333333333" />
         <entry key="..\:/Seizure-of-territory/app/src/main/res/layout/item_inner.xml" value="0.2125" />
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/item_dialog_setting.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/item_inner.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/Seizureofterritory/app/src/main/res/layout/item_main.xml" value="0.24895833333333334" />
       </map>
     </option>
   </component>

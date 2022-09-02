@@ -1,6 +1,8 @@
 package com.SeizureOfTerritory.fragment
 
+import android.annotation.SuppressLint
 import android.graphics.Point
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Display
 import android.view.LayoutInflater
@@ -15,11 +17,13 @@ import com.SeizureOfTerritory.databinding.FragmentGameBinding
 import com.SeizureOfTerritory.utils.Constants
 import com.SeizureOfTerritory.utils.Utils
 
+
 class GameFragment : Fragment() {
     private val binding by lazy { FragmentGameBinding.inflate(layoutInflater) }
 
     private var _moves = 20
     private var _points = 0
+    private var isSwitchOnVibration = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +32,7 @@ class GameFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
 
+        isSwitchOnVibration = Utils.isEnabledVibration(requireActivity())
         initViews()
         return binding.root
     }
@@ -184,8 +189,10 @@ class GameFragment : Fragment() {
     }
 
     // Makes the selected image unselectable again
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setClickableFalse(ball: Int) {
         increaseMovesValue()
+        playVibration()
 
         binding.apply {
             iv1!!.isClickable = true
@@ -231,11 +238,15 @@ class GameFragment : Fragment() {
         }
     }
 
+    private fun playVibration() {
+        if (isSwitchOnVibration) MediaPlayer.create(context, R.raw.tap_on_the_object).start()
+    }
+
     private fun increaseMovesValue() {
         binding.tvMoves!!.text = "${--_moves}"
     }
 
-    private var first: Int = 0;
+    private var first: Int = 0
     private var root = Array(Constants.ROW) { BooleanArray(Constants.COLUMN) }
 
     //starts filling the matrix with the selected image
@@ -250,27 +261,27 @@ class GameFragment : Fragment() {
     }
 
     private fun recursion(i: Int, j: Int, ivValue: Int) {
-        if (i < 0 || i >= Constants.ROW || j < 0 || j >= Constants.COLUMN) return;
+        if (i < 0 || i >= Constants.ROW || j < 0 || j >= Constants.COLUMN) return
 
-        if (ivValue == first) return;
+        if (ivValue == first) return
 
-        if (root[i][j]) return;
+        if (root[i][j]) return
 
         if (matrix[i][j] == ivValue) {
-            root[i][j] = true;
+            root[i][j] = true
             coveredMatrixPart[i][j] = true
-            recursion(i, j + 1, ivValue);
-            recursion(i + 1, j, ivValue);
-            recursion(i, j - 1, ivValue);
-            recursion(i - 1, j, ivValue);
+            recursion(i, j + 1, ivValue)
+            recursion(i + 1, j, ivValue)
+            recursion(i, j - 1, ivValue)
+            recursion(i - 1, j, ivValue)
         } else if (matrix[i][j] == first) {
-            matrix[i][j] = ivValue;
-            root[i][j] = true;
+            matrix[i][j] = ivValue
+            root[i][j] = true
             coveredMatrixPart[i][j] = true
-            recursion(i, j + 1, ivValue);
-            recursion(i + 1, j, ivValue);
-            recursion(i, j - 1, ivValue);
-            recursion(i - 1, j, ivValue);
+            recursion(i, j + 1, ivValue)
+            recursion(i + 1, j, ivValue)
+            recursion(i, j - 1, ivValue)
+            recursion(i - 1, j, ivValue)
         }
     }
 
