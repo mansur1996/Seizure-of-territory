@@ -1,6 +1,11 @@
 package com.SeizureOfTerritory.utils
 
+import android.media.MediaPlayer
+
 object Constants {
+
+    lateinit var mediaPlayer: MediaPlayer
+    lateinit var mediaPlayerVibration: MediaPlayer
     const val ROW = 12
     const val COLUMN = 12
     const val ITEMS = 10
@@ -8,4 +13,8 @@ object Constants {
     const val MOVES = 20
     const val POINTS = 0
     const val SCORE = 1
+    const val KEY_VIBRATION = "VIBRATION"
+    const val KEY_SOUND = "SOUND"
+    const val KEY_LANG = "language"
+    const val PREF_FILE = "Pref"
 }

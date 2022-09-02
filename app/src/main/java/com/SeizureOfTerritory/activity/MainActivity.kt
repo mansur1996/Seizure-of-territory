@@ -1,5 +1,7 @@
 package com.SeizureOfTerritory.activity
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +12,17 @@ import androidx.navigation.Navigation
 import com.SeizureOfTerritory.R
 import com.SeizureOfTerritory.databinding.ActivityMainBinding
 import com.SeizureOfTerritory.databinding.ItemDialogResultBinding
+import com.SeizureOfTerritory.utils.Constants
 
 
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
+    lateinit var sharedPreferences: SharedPreferences
+
+    var isSoundOn: Boolean? = null
+    var isVibrationOn: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +40,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        sharedPreferences = this.getSharedPreferences(Constants.PREF_FILE,MODE_PRIVATE)
 
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return Navigation.findNavController(this, R.id.nav_host_fragment).navigateUp()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Constants.mediaPlayer.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isSoundOn = sharedPreferences.getBoolean(Constants.KEY_SOUND,false)
+        if (isSoundOn!!){
+            Constants.mediaPlayer.start()
+            Constants.mediaPlayer.isLooping = true
+        }
+
     }
 
 }

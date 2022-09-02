@@ -244,7 +244,7 @@ class GameFragment : Fragment() {
         root = Utils.fillMatrixWithFalse(root)
         coveredMatrixPart = Utils.fillMatrixWithFalse(coveredMatrixPart)
 
-//        recursion(0, 0, ivValue)
+        recursion(0, 0, ivValue)
 
         refreshAdapter(matrix, coveredMatrixPart)
     }
