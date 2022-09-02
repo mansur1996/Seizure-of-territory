@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Point
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
@@ -243,7 +244,8 @@ class GameFragment : Fragment() {
     }
 
     private fun increaseMovesValue() {
-        binding.tvMoves!!.text = "${--_moves}"
+        if (--_moves >= 0) binding.tvMoves!!.text = "${_moves}"
+        else binding.tvMoves!!.text = "0"
     }
 
     private var first: Int = 0
