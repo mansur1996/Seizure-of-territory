@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import androidx.fragment.app.FragmentActivity
 import com.SeizureOfTerritory.R
 import com.SeizureOfTerritory.fragment.HomeFragment
 import com.SeizureOfTerritory.fragment.GameFragment
@@ -224,5 +225,10 @@ object Utils {
                 imageView.setImageResource(R.mipmap.ic_ball10)
             }
         }
+    }
+
+    fun isEnabledVibration(context: Context): Boolean {
+        val preferences = context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE)
+        return preferences.getBoolean(Constants.KEY_VIBRATION, false)
     }
 }
